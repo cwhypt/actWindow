@@ -12,6 +12,7 @@ TableEditor::TableEditor(QWidget *parent)
     model = new QSqlTableModel(this);
     model->setTable("person");
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->sort (0,Qt::AscendingOrder);
     model->select();
 
     model->setHeaderData(0, Qt::Horizontal, tr("ID"));

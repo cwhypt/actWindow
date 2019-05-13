@@ -10,7 +10,8 @@
 AutoPage::AutoPage(QWidget *parent)
     : QWidget(parent)
 {
-    layout=new QHBoxLayout(this);
+    vlayout=new QVBoxLayout(this);  //竖向排列
+    hlayout=new QHBoxLayout(); //横向排列，包括各groupbox
 
 //第一部分
     signalMapper1=new QSignalMapper(this);
@@ -41,7 +42,7 @@ AutoPage::AutoPage(QWidget *parent)
         groupBox->setLayout(formLayout);
         connect(signalMapper1, SIGNAL(mapped(int)),
                 this, SLOT(exec1(int)));
-        layout->addWidget(groupBox);
+        hlayout->addWidget(groupBox);
 
 //第二部分
         signalMapper2=new QSignalMapper(this);
@@ -72,7 +73,7 @@ AutoPage::AutoPage(QWidget *parent)
             groupBox->setLayout(formLayout);
             connect(signalMapper2, SIGNAL(mapped(int)),
                     this, SLOT(exec1(int)));
-            layout->addWidget(groupBox);
+            hlayout->addWidget(groupBox);
 
             //第三部分
             signalMapper3=new QSignalMapper(this);
@@ -103,7 +104,7 @@ AutoPage::AutoPage(QWidget *parent)
                 groupBox->setLayout(formLayout);
                 connect(signalMapper3, SIGNAL(mapped(int)),
                         this, SLOT(exec3(int)));
-                layout->addWidget(groupBox);
+                hlayout->addWidget(groupBox);
 
                 //第四部分
                 signalMapper4=new QSignalMapper(this);
@@ -136,8 +137,14 @@ AutoPage::AutoPage(QWidget *parent)
                             this, SLOT(exec4(int)));
 
 
-        layout->addWidget(groupBox);
+        hlayout->addWidget(groupBox);
         //setLayout(layout);
+
+        vlayout->addLayout (hlayout);
+
+        spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        vlayout->addSpacerItem(spacer);
+
 
 
 }

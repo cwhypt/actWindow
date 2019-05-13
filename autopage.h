@@ -46,14 +46,15 @@ private:
      QVBoxLayout *formLayout;
      QPushButton *click1;
      //QLineEdit *edit1;
-     QBoxLayout *layout;
+     QBoxLayout *hlayout;
+     QBoxLayout *vlayout;
      QSignalMapper *signalMapper1;
      QSignalMapper *signalMapper2;
      QSignalMapper *signalMapper3;
      QSignalMapper *signalMapper4;
      QGroupBox *groupBox;
 
-
+     QSpacerItem *spacer;
 private slots:
 
      void exec1(const int);

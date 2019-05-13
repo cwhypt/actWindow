@@ -10,10 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     mp=ui->mainPage;  //注意这儿不能加QWidget！！否则重定义为局域函数
     ap=ui->autoPage;
-    currentPage=ui->mainPage;
+    currentPage=ui->autoPage;
     //TableEditor *tbUpdate = mp->findChild<TableEditor *>();
     //connect(tbUpdate,SIGNAL(updateTable()),this,SLOT(update0()));
-    ap->hide();
+    mp->hide();
 
 }
 
