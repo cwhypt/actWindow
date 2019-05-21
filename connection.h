@@ -8,15 +8,6 @@
 #include <QSqlQuery>
 #include <QDir>
 
-/*
-    This file defines a helper function to open a connection to an
-    in-memory SQLITE database and to create a test table.
-
-    If you want to use another database, simply modify the code
-    below. All the examples in this directory use this function to
-    connect to a database.
-*/
-//! [0]
 
 struct dbReturn
  {
@@ -29,7 +20,7 @@ dbReturn createConnection()
     dbReturn re;
     re.ran=0;
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\Users\\cwh\\Documents\\Test\\openDb.db");  //适配
+    db.setDatabaseName(".\\openDB.db");  //适配  C:\\Users\\cwh\\Documents\\Test\\openDb.db
 
     if (!db.open()) {
         QMessageBox::critical(0, qApp->tr("Cannot open database"),

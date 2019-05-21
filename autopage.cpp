@@ -47,7 +47,7 @@ AutoPage::AutoPage(QWidget *parent)
 //第二部分
         signalMapper2=new QSignalMapper(this);
 
-        groupBox= new QGroupBox(tr("科研"),this);
+        groupBox= new QGroupBox(tr("F2"),this); //科研
         formLayout= new QVBoxLayout;
 
         model2 = new QSqlTableModel(this);
@@ -72,13 +72,13 @@ AutoPage::AutoPage(QWidget *parent)
             formLayout->addStretch(1);
             groupBox->setLayout(formLayout);
             connect(signalMapper2, SIGNAL(mapped(int)),
-                    this, SLOT(exec1(int)));
+                    this, SLOT(exec2(int)));
             hlayout->addWidget(groupBox);
 
             //第三部分
             signalMapper3=new QSignalMapper(this);
 
-            groupBox= new QGroupBox(tr("课内"),this);
+            groupBox= new QGroupBox(tr("F3"),this);  //课内
             formLayout= new QVBoxLayout;
 
             model3 = new QSqlTableModel(this);
@@ -109,7 +109,7 @@ AutoPage::AutoPage(QWidget *parent)
                 //第四部分
                 signalMapper4=new QSignalMapper(this);
 
-                groupBox= new QGroupBox(tr("其他"),this);
+                groupBox= new QGroupBox(tr("F4"),this); //其他
                 formLayout= new QVBoxLayout;
 
                 model4 = new QSqlTableModel(this);
@@ -137,15 +137,50 @@ AutoPage::AutoPage(QWidget *parent)
                             this, SLOT(exec4(int)));
 
 
-        hlayout->addWidget(groupBox);
-        //setLayout(layout);
+                    hlayout->addWidget(groupBox);
+
 
         vlayout->addLayout (hlayout);
+
+
+        //下列窗口
+            signalMapper5=new QSignalMapper(this);
+
+            groupBox= new QGroupBox(tr("窗口"),this);
+            hformLayout= new QHBoxLayout;
+
+            model5 = new QSqlTableModel(this);
+            model5->setTable("person");
+            model5->setFilter("ID > 960 and ID < 971");
+
+            if (model5->select()) {
+                int iter=model5->rowCount();
+                for (int i=0;i<iter;i++){
+                    QSqlRecord record = model5->record(i);
+                    value40[i] = record.value("value").toString();
+                    name40[i] = record.value("name").toString();
+                    qDebug() << "Value" << ": " << value40[i];
+                    click1=new QPushButton(name40[i]);
+                    hformLayout->addWidget(click1);
+
+                    connect(click1, SIGNAL(clicked()), signalMapper5, SLOT(map()));
+                    signalMapper5->setMapping(click1,i);
+                }
+            }
+
+                hformLayout->addStretch(1);
+                groupBox->setLayout(hformLayout);
+                connect(signalMapper5, SIGNAL(mapped(int)),
+                        this, SLOT(exec5(int)));
+                vlayout->addWidget(groupBox);
+
+
 
         spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
         vlayout->addSpacerItem(spacer);
 
 
+        setLayout(vlayout);
 
 }
 
@@ -203,3 +238,15 @@ void AutoPage::exec4(int i){
     wd->show();
 }
 
+void AutoPage::exec5(int i){
+    QSqlRecord record = model5->record(i);
+    QString uid = record.value("ID").toString();
+    value40[i] = record.value("value").toString();
+    name40[i] = record.value("name").toString();
+    qDebug() << "Value" << ": " << value40[i];
+    QMainWindow *wd=new QMainWindow(0);
+    QString tt="Case ";
+    tt+=uid;
+    wd->setWindowTitle(tt);
+    wd->show();
+}

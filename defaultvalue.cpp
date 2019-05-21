@@ -16,11 +16,10 @@ DefaultValue::DefaultValue(QWidget *parent)
     model->setTable("person");
     model->setFilter("ID = 901");
     if (model->select()) {
-        if (model->rowCount() == 1) {
             QSqlRecord record = model->record(0);
-            value0 = record.value("value").toString();
-            qDebug() << "Value" << ": " << value0;
-        }
+            value0 = record.value("name").toString();
+            qDebug() << "Name" << ": " << value0;
+
     }
     valueP=value0;     //注意在if条件句中的定义P到括号外边也会析构！！！
     QClipboard *clipboard = QApplication::clipboard();
@@ -37,6 +36,11 @@ DefaultValue::DefaultValue(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(formLayout);
     //layout->addWidget(buttonBox);
+
+    //设置搜索
+
+
+
     setLayout(layout);
     TableEditor *tbUpdate = parent->findChild<TableEditor *>();
     connect(tbUpdate,SIGNAL(updateTable()),this,SLOT(update0()));

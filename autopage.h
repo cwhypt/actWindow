@@ -25,16 +25,19 @@ public:
      QString name10[10];
      QString name20[10];
      QString name30[10];
+     QString name40[10];
 
      QString value0[10];
      QString value10[10];
      QString value20[10];
      QString value30[10];
+     QString value40[10];
 
     QSqlTableModel *model1;
     QSqlTableModel *model2;
     QSqlTableModel *model3;
     QSqlTableModel *model4;
+    QSqlTableModel *model5;
 
     QList<QPushButton *> buttonList;
 
@@ -43,6 +46,7 @@ public:
 //    void clicked(const QString &text);
 
 private:
+    QHBoxLayout *hformLayout;
      QVBoxLayout *formLayout;
      QPushButton *click1;
      //QLineEdit *edit1;
@@ -52,6 +56,7 @@ private:
      QSignalMapper *signalMapper2;
      QSignalMapper *signalMapper3;
      QSignalMapper *signalMapper4;
+     QSignalMapper *signalMapper5;
      QGroupBox *groupBox;
 
      QSpacerItem *spacer;
@@ -61,6 +66,7 @@ private slots:
      void exec2(const int);
      void exec3(const int);
      void exec4(const int);
+     void exec5(const int);
 };
 //! [0]
 

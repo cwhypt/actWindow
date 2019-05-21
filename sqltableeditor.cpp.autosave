@@ -2,7 +2,7 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QModelIndex>
-#include <QDebug>
+
 #include "dialogimg.h"
 #include "sqltableeditor.h"
 
@@ -32,7 +32,6 @@ TableEditor::TableEditor(QWidget *parent)
     addButton = new QPushButton(tr("Add"));
     deleteButton = new QPushButton(tr("Delete"));
     viewButton = new QPushButton(tr("View"));
-    resetButton = new QPushButton(tr("Reset"));
     searchButton = new QPushButton(tr("Search"));
     submitButton = new QPushButton(tr("Submit"));
     submitButton->setDefault(true);
@@ -45,7 +44,6 @@ TableEditor::TableEditor(QWidget *parent)
     buttonBox->addButton(deleteButton,QDialogButtonBox::ActionRole);
     buttonBox->addButton(submitButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(revertButton, QDialogButtonBox::ActionRole);
-    buttonBox->addButton(resetButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
 
@@ -55,7 +53,6 @@ TableEditor::TableEditor(QWidget *parent)
     connect(searchButton, SIGNAL(clicked()), this, SLOT(searchImg()));
     connect(submitButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(revertButton, SIGNAL(clicked()), model, SLOT(revertAll()));
-    connect(resetButton, SIGNAL(clicked()), this, SLOT(reset_()));
     connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
 
 
@@ -87,7 +84,6 @@ TableEditor::TableEditor(QWidget *parent)
     formatLayout->addWidget (anyButton);
     formatLayout->addWidget (allButton);
     formatLayout->addWidget(searchButton);
-    formatLayout->addWidget(resetButton);
 
     vlayout->addLayout (formatLayout);
 
@@ -153,38 +149,10 @@ void TableEditor::searchImg()
     QSqlQuery query;
 bool any=this->anyButton->isChecked ();
 bool all=this->allButton->isChecked ();
-QString crit1=this->edit1->text ();
-QString crit2=this->edit2->text ();
-QString arg1;
-
-if(any){
-    if(!crit1.isEmpty ())
-        arg1+="Name = '"+crit1+"' OR ";
-    if(!crit2.isEmpty ())
-        arg1+="Value = '"+crit2+"' OR ";
-    int len=arg1.length ();
-    if(len){
-        arg1.remove (len-4,4);
-        qDebug()<<arg1;
-        model->setFilter (arg1);
-    }
-  }
-if(all){
-    if(!crit1.isEmpty ())
-        arg1+="Name = '"+crit1+"' AND ";
-    if(!crit2.isEmpty ())
-        arg1+="Value = '"+crit2+"' AND ";
-    int len=arg1.length ();
-    if(len){
-        arg1.remove (len-5,5);
-        qDebug()<<arg1;
-        model->setFilter (arg1);
-    }
-  }
-}
-void TableEditor::reset_()
-{
-    model->setFilter (QString());
+QString crit1=this->label1->text ();
+QString crit2=this->label2->text ();
+if(any)
+    
 }
 
 

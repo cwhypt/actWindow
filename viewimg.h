@@ -38,71 +38,35 @@
 **
 ****************************************************************************/
 
-#ifndef TABLEEDITOR_H
-#define TABLEEDITOR_H
-
-#include <QDialog>
-#include <qsqltablemodel.h>
+#ifndef VIEW_H
+#define VIEW_H
 
 #include <QtWidgets>
-QT_BEGIN_NAMESPACE
-class QDialogButtonBox;
-class QPushButton;
-class QSqlTableModel;
-#include <QItemSelection>
-QT_END_NAMESPACE
+#include <QtSql>
+#include "sqltableeditor.h"
+class ImageItem;
+
 
 //! [0]
-class TableEditor : public QWidget
+class View : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    explicit TableEditor(QWidget *parent = 0);
-
+    View(int, QWidget *parent = 0);
     QSqlTableModel *model;
-    QModelIndex currentIndex;
 
-    QTableView *view;
 
-    QItemSelectionModel *currentModel;
-    int currentRow;
-
-signals:
-    void updateTable();
-
+//! [1]
 private slots:
-    void submit();
-    void add();
-    void viewImg();
-    void searchImg();
-    void delete_();
-    void close();
-    void reset_();
-
-    void selectedRow(const QItemSelection &,const QItemSelection &);
+    void updateImage(int id, const QString &fileName);
 
 private:
-    QPushButton *addButton;
-    QPushButton *deleteButton;
-    QPushButton *viewButton;
-    QPushButton *searchButton;
-    QPushButton *submitButton;
-    QPushButton *resetButton;
+    void addItems(int);
 
-    QPushButton *revertButton;
-    QPushButton *quitButton;
-    QDialogButtonBox *buttonBox;
+    QGraphicsScene *scene;
 
-
-    QLabel *label1;
-    QLineEdit *edit1;
-    QLabel *label2;
-    QLineEdit *edit2;
-
-    QRadioButton *anyButton;
-    QRadioButton *allButton;
 };
-//! [0]
+//! [3]
 
 #endif

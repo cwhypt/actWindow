@@ -17,14 +17,20 @@ SOURCES += main.cpp\
     sqltableeditor.cpp \
     defaultvalue.cpp \
     mainpage.cpp \
-    autopage.cpp
+    autopage.cpp \
+    imageitem.cpp \
+    viewimg.cpp \
+    dialogimg.cpp
 
 HEADERS  += mainwindow.h \
     connection.h \
     sqltableeditor.h \
     defaultvalue.h \
     mainpage.h \
-    autopage.h
+    autopage.h \
+    imageitem.h \
+    viewimg.h \
+    dialogimg.h
 
 FORMS    += mainwindow.ui
 
